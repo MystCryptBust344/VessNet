@@ -381,9 +381,20 @@ def organize_stare(raw_dir: str, project_root: Path) -> list[dict]:
         print(f"  [STARE] Run: python src/preprocessing/download_stare.py")
         return []
 
-    # Locate images — could be in raw/images/ or raw/ directly
-    imgs_dir = raw / "images" if (raw / "images").exists() else raw
-    masks_dir = raw / "masks" if (raw / "masks").exists() else raw
+    # Locate images — could be in raw/images/, raw/stare-images/ or raw/ directly
+    if (raw / "images").exists():
+        imgs_dir = raw / "images"
+    elif (raw / "stare-images").exists():
+        imgs_dir = raw / "stare-images"
+    else:
+        imgs_dir = raw
+        
+    if (raw / "masks").exists():
+        masks_dir = raw / "masks"
+    elif (raw / "labels-ah").exists():
+        masks_dir = raw / "labels-ah"
+    else:
+        masks_dir = raw
 
     images = sorted(imgs_dir.glob("*.ppm"))
     print(f"  [STARE] Found {len(images)} images")
@@ -398,16 +409,21 @@ def organize_stare(raw_dir: str, project_root: Path) -> list[dict]:
         if str(raw) != str(out_base):  # avoid copying to itself
             safe_copy(img_path, out_img)
 
-        # Hoover mask (.ah) — primary
+        # Hoover mask (.ah or .ah.ppm) — primary
         ah_mask = masks_dir / f"{stem}.ah"
+        if not ah_mask.exists():
+            ah_mask = masks_dir / f"{stem}.ah.ppm"
+            
         out_mask_path = ""
         if ah_mask.exists():
-            out_mask = out_base / "masks" / f"{stem}.ah"
+            # Standardize output mask extension to .ah
+            out_mask_name = f"{stem}.ah"
+            out_mask = out_base / "masks" / out_mask_name
             if str(raw) != str(out_base):
                 safe_copy(ah_mask, out_mask)
             out_mask_path = str(out_mask.relative_to(project_root))
         else:
-            print(f"    [WARN] No .ah mask for {stem} — checked {ah_mask}")
+            print(f"    [WARN] No .ah or .ah.ppm mask for {stem} — checked {masks_dir}")
 
         # Extract numeric subject_id
         subject_id = stem.replace("im", "").lstrip("0") or "0"

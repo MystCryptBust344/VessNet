@@ -68,3 +68,5 @@ data/STARE/external_test/masks/*.png
 # OS artifacts
 Thumbs.db
 .DS_Store
+
+data/STARE/external_test/masks/*.ah

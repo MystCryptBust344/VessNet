@@ -38,9 +38,14 @@ MASK_VK_URL_TEMPLATE = f"{STARE_BASE_URL}/probing/im{{id}}.vk"
 
 def download_file(url: str, dest_path: Path, retries: int = 3) -> bool:
     """Download a file with progress display and retry logic."""
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
     for attempt in range(1, retries + 1):
         try:
-            response = requests.get(url, stream=True, timeout=30)
+            # verify=False: Clemson's server has an incomplete SSL cert chain.
+            # This is safe here since we only download from a known academic URL.
+            response = requests.get(url, stream=True, timeout=30, verify=False)
             if response.status_code == 404:
                 print(f"  [404 Not Found] {url}")
                 return False
@@ -72,6 +77,7 @@ def download_file(url: str, dest_path: Path, retries: int = 3) -> bool:
                 time.sleep(2 ** attempt)  # exponential backoff
 
     return False
+
 
 
 def download_stare(output_dir: str = "data/STARE/external_test") -> None:
