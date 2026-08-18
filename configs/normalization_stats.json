@@ -1,0 +1,19 @@
+{
+  "mean": [
+    0.497400230330214,
+    0.270648859992484,
+    0.1624375872062581
+  ],
+  "std": [
+    0.3481449122467129,
+    0.19002112193385184,
+    0.10786241765892014
+  ],
+  "n_images": 20,
+  "note": "Computed from DRIVE training set ONLY. Do not recompute with test/CHASE/STARE.",
+  "channels": [
+    "R",
+    "G",
+    "B"
+  ]
+}
