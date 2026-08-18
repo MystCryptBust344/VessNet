@@ -70,3 +70,10 @@ Thumbs.db
 .DS_Store
 
 data/STARE/external_test/masks/*.ah
+# Additional ignores
+checkpoints/
+drive_av_dataset/
+temp_*/
+Papers/
+scratch/
+

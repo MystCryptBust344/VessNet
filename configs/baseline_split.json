@@ -1,0 +1,26 @@
+{
+    "train": [
+        "DRIVE_23_training",
+        "DRIVE_24_training",
+        "DRIVE_25_training",
+        "DRIVE_26_training",
+        "DRIVE_27_training",
+        "DRIVE_28_training",
+        "DRIVE_29_training",
+        "DRIVE_30_training",
+        "DRIVE_31_training",
+        "DRIVE_32_training",
+        "DRIVE_33_training",
+        "DRIVE_34_training",
+        "DRIVE_35_training",
+        "DRIVE_37_training",
+        "DRIVE_39_training",
+        "DRIVE_40_training"
+    ],
+    "val": [
+        "DRIVE_21_training",
+        "DRIVE_22_training",
+        "DRIVE_36_training",
+        "DRIVE_38_training"
+    ]
+}
