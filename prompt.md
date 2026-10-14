@@ -1,0 +1,1 @@
+please check the above dataset paths and let us know where the ground truth is- we trained the model and we dont know where the images are and hwtra our model is doing and also generate me a code to infer for our model and create a plot with the input image input segmented image and the output image and its segmented image
